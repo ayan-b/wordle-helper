@@ -28,10 +28,10 @@ function App() {
       }
     }
 
-    let incorrectPositionLetters = document.getElementById(`incorrect-letter`).value;
-    let doesNotContainLetters = document.getElementById(`not-contain`).value;
+    let incorrectPositionLetters = document.getElementById(`incorrect-letter`).value.toLowerCase();
+    let doesNotContainLetters = document.getElementById(`not-contain`).value.toLowerCase();
 
-    const regexedForm = new RegExp(regexForm, 'g');
+    const regexedForm = new RegExp(regexForm.toLowerCase(), 'g');
     const curFilteredWords = fiveLetterWords.filter(word => word.match(regexedForm));
     const filteredCurFilteredWords = curFilteredWords.filter(word => {
       for (const letter of incorrectPositionLetters) {
@@ -54,14 +54,14 @@ function App() {
 
   return (
     <div className="App">
-      <p>Letter at their place:</p>
+      <p>Letter(s) at their place:</p>
       <input type="text" id="letter-0" name="first-letter" minLength="1" maxLength="1" size="3" onChange={handleOnChange} />
       <input type="text" id="letter-1" name="second-letter" minLength="1" maxLength="1" size="3" onChange={handleOnChange} />
       <input type="text" id="letter-2" name="third-letter" minLength="1" maxLength="1" size="3" onChange={handleOnChange} />
       <input type="text" id="letter-3" name="fourth-letter" minLength="1" maxLength="1" size="3" onChange={handleOnChange} />
       <input type="text" id="letter-4" name="five-letter" minLength="1" maxLength="1" size="3" onChange={handleOnChange} />
-      <p>Letter at incorrect place:</p>
-      <input type="text" id="incorrect-letter" name="letter-incorrect" minLength="1" maxLength="5" size="3" onChange={handleOnChange} />
+      <p>Letter(s) at incorrect place:</p>
+      <input type="text" id="incorrect-letter" name="letter-incorrect" minLength="1" maxLength="5" size="15" onChange={handleOnChange} />
       <p>Doesn't contain the letters:</p>
       <input type="text" id="not-contain" name="does-not-contain" minLength="1" maxLength="26" size="40" onChange={handleOnChange} />
       <p>Filtered word(s):</p>
