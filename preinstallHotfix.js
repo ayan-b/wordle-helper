@@ -17,7 +17,7 @@ fs.readFile(file, "utf8", function (err, data) {
   }
   const result = data.replace(
     "require('mini-css-extract-plugin');",
-    "require('mini-css-extract-plugin').default;"
+    "require('mini-css-extract-plugin');"
   )
 
   fs.writeFile(file, result, "utf8", function (err) {
