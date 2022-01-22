@@ -2,20 +2,30 @@ import React, { useEffect, useState } from 'react';
 
 import './App.css';
 
-import raw from './words.txt';
+import raw from './larger.txt';
+import words from './words.txt';
 
 function App() {
 
   const [fiveLetterWords, setFiveLetterWords] = useState([]);
   const [filteredWords, setFilteredWords] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
-    fetch(raw)
+    fetch(isChecked ? raw : words)
       .then(response => response.text())
       .then(text => text.split('\n'))
       .then(text => text.map(word => word.toLowerCase()))
       .then(text => setFiveLetterWords(text));
-  }, [])
+  }, [isChecked]);
+
+  const handleCheckbox = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    handleOnChange();
+  }, [fiveLetterWords]);
 
   const handleOnChange = (event) => {
 
@@ -54,7 +64,7 @@ function App() {
           return false;
         }
       }
-      
+
       for (const letter of doesNotContainLetters) {
         if (word.includes(letter)) {
           return false;
@@ -62,8 +72,7 @@ function App() {
       }
       return true;
     });
-
-    setFilteredWords(filteredCurFilteredWords);
+    setFilteredWords(filteredCurFilteredWords.length < fiveLetterWords.length ? filteredCurFilteredWords : []);
   }
 
   return (
@@ -82,6 +91,10 @@ function App() {
       <input type="text" id="incorrect-letter-4" name="incorrect-five-letter" minLength="1" maxLength="5" size="3" onChange={handleOnChange} />
       <p>Doesn't contain the letters:</p>
       <input type="text" id="not-contain" name="does-not-contain" minLength="1" maxLength="26" size="40" onChange={handleOnChange} />
+      <br />
+      <br />
+      <input type="checkbox" id="larger-list" name="larger-list" onChange={handleCheckbox} />
+      <label htmlFor="larger-list">Use larger wordlist</label>
       <p>Filtered word(s):</p>
       {filteredWords
         .map((word, index) => { return <p key={index}>{word}</p> })}

@@ -14,7 +14,7 @@
   },
   "homepage": "https://ayan-b.github.io/wordle-helper/",
   "scripts": {
-    "prebuild": "npx -y npm-force-resolutions && node preinstallHotfix.js",
+    "prebuild": "npx -y npm-force-resolutions",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
