@@ -43,15 +43,11 @@ function App() {
       incorrectPositionLettersArray.push(incorrectLetterAtIndex);
     }
 
-    // let incorrectPositionLetters = document.getElementById(`incorrect-letter`).value.toLowerCase();
     let incorrectPositionLetters = incorrectPositionLettersArray.join('').toLowerCase();
     let doesNotContainLetters = document.getElementById(`not-contain`).value.toLowerCase();
 
-    // console.log(incorrectPositionLetters);
-
     const regexedForm = new RegExp(regexForm.toLowerCase(), 'g');
     const curFilteredWords = fiveLetterWords.filter(word => word.match(regexedForm));
-    // console.log(curFilteredWords);
     const filteredCurFilteredWords = curFilteredWords.filter(word => {
       for (const letter of incorrectPositionLetters) {
         if (word.includes(letter)) {
